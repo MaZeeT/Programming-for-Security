@@ -9,14 +9,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        //launch gui + window
         IGUI gui = new ChatGUI(800,600);
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("ChatCrypt");
         primaryStage.setScene(gui.getScene());
         primaryStage.show();
 
+        //test population of gui textarea
         String[] messages = {"lol","more lol","text string"};
         gui.setChat(messages);
-
     }
 
 
