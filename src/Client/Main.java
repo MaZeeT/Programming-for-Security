@@ -1,7 +1,7 @@
-package core;
+package Client;
 
-import GUI.ChatGUI;
-import GUI.IGUI;
+import Client.GUI.ChatGUI;
+import Client.GUI.IGUI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
