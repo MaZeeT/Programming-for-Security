@@ -1,0 +1,31 @@
+
+L
+src/Client/GUI/ChatView.java,6\d\6d0980e769a9fa02e2d804124c6956be569976ec
+H
+src/Client/GUI/IGUI.java,5\4\549da55c873a1a434e44baec65458eb4df4e278f
+K
+src/Client/GUI/ChatGUI.java,6\e\6ebb88ab863d1199579896667bf8382cf71dd39d
+D
+src/Client/Main.java,3\d\3ddd8ea253918bb18c992cdbe3aef5dcb4cce88a
+H
+src/Client/GUI/View.java,a\0\a07578ee32ff3b9976f75bec605ef4c13ca3ae5b
+R
+"src/Client/GUI/ChatController.java,1\f\1f32aa225392f328a93c121e1a57b76560cc2027
+E
+src/Logic/Crypto.java,5\2\52701075712cda3451b7b24dde4f7d306aaae5b7
+O
+src/Trashcan/ServerService.java,c\a\ca60ef2d4f629ca5eea42880cdf9780011d28b7f
+H
+src/Trashcan/Client.java,d\d\dd2f9aa0ed8b59fbcf440325dcc6035b407b4bd6
+H
+src/Trashcan/Server.java,9\5\95a87b99bd4a8db9369eaaa6afdb78f6bffdfa5d
+S
+#src/Network/BaseChatConnection.java,9\c\9cbebc5159ee14a8f88880e54d55f32c7d6b05c4
+U
+%src/Network/ClientChatConnection.java,a\6\a60506f56019caed7027226e2964184100a6ddff
+U
+%src/Network/ServerChatConnection.java,f\3\f36db0b8b424bf40063300956434033e109c4c62
+O
+src/Trashcan/ClientService.java,c\9\c9d1b4b8e879e21304c35ab4cefa3a0bad63cafc
+D
+src/Server/Main.java,a\b\abc6b74cc61764fea9cb4e13e5118819dec580ba

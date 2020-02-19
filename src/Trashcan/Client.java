@@ -1,16 +1,13 @@
-package Server;
+package Trashcan;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 // Source: https://way2java.com/networking/chat-program-two-way-communication/
 
-public class Server {
+public class Client {
     public static void main(String[] args) throws Exception {
-        ServerSocket sersock = new ServerSocket(3000);
-        System.out.println("Server  ready for chatting");
-        Socket sock = sersock.accept();
+        Socket sock = new Socket("127.0.0.1", 3000);
         // reading from keyboard (keyRead object)
         BufferedReader keyRead = new BufferedReader(new InputStreamReader(System.in));
         // sending to client (pwrite object)
@@ -21,14 +18,17 @@ public class Server {
         InputStream istream = sock.getInputStream();
         BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
 
+        System.out.println("Start the chitchat, type and press Enter key");
+
         String receiveMessage, sendMessage;
         while (true) {
-            if ((receiveMessage = receiveRead.readLine()) != null) {
-                System.out.println(receiveMessage);
+            sendMessage = keyRead.readLine();  // keyboard reading
+            pwrite.println(sendMessage);       // sending to server
+            pwrite.flush();                    // flush the data
+            if ((receiveMessage = receiveRead.readLine()) != null) //receive from server
+            {
+                System.out.println(receiveMessage); // displaying at DOS prompt
             }
-            sendMessage = keyRead.readLine();
-            pwrite.println(sendMessage);
-            pwrite.flush();
         }
     }
-}                        
+}
