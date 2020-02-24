@@ -5,7 +5,7 @@ import Network.ServerChatConnection;
 
 import java.io.IOException;
 
-public class ChatServer {
+public class ChatServer implements Runnable {
 
 
     BaseChatConnection chatConnection;
@@ -14,10 +14,19 @@ public class ChatServer {
     }
 
     boolean keepRunning = true;
-    public void run() throws IOException {
+    public void run(){
+        keepRunning = true;
         while (keepRunning){
-            chatConnection.receiveMessages();
+            try{
+                chatConnection.receiveMessages();
+            }catch (Exception e){
+                System.out.println(e.toString());
+            }
         }
+    }
+
+    public void pause(){
+        keepRunning = false;
     }
 
 }

@@ -6,20 +6,26 @@ import java.net.Socket;
 
 public abstract class BaseChatConnection {
     Socket socket;
+    OutputStream outputStream;
+    PrintWriter socketSend;
 
-    protected BaseChatConnection() throws IOException {
+    InputStream inputStream;
+    BufferedReader socketRead;
+
+    protected BaseChatConnection(Socket socket) throws IOException {
+        this.socket = socket;
+        outputStream = socket.getOutputStream();
+        socketSend = new PrintWriter(outputStream, true);
+
+        inputStream = socket.getInputStream();
+        socketRead = new BufferedReader(new InputStreamReader(inputStream));
     }
-
-    OutputStream outputStream = socket.getOutputStream();
-    PrintWriter socketSend = new PrintWriter(outputStream, true);
 
     public void sendMessage(String message) {
         socketSend.println(message);
         socketSend.flush();
     }
 
-    InputStream inputStream = socket.getInputStream();
-    BufferedReader socketRead = new BufferedReader(new InputStreamReader(inputStream));
 
     public String receiveMessages() throws IOException {
         return socketRead.readLine();
