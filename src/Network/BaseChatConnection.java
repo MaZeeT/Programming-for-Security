@@ -1,7 +1,6 @@
 package Network;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 public class BaseChatConnection {
@@ -15,12 +14,6 @@ public class BaseChatConnection {
         this.inputStream = new ObjectInputStream(socket.getInputStream());
     }
 
-    BufferedReader socketRead = new BufferedReader(new InputStreamReader(inputStream));
-
-    public String receiveMessages() throws IOException {
-        return socketRead.readLine();
-    }
-
     public Message receive() throws IOException, ClassNotFoundException {
         return (Message) inputStream.readObject();
     }
@@ -30,5 +23,11 @@ public class BaseChatConnection {
         outputStream.flush();
     }
 
+    public void send() throws IOException {
+        BufferedReader socketRead = new BufferedReader(new InputStreamReader(inputStream));
+        Message message = new Message("Console", socketRead.readLine());
+        outputStream.writeObject(message);
+        outputStream.flush();
+    }
 
 }
