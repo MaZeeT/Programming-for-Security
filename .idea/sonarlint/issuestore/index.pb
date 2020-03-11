@@ -29,3 +29,10 @@ O
 src/Trashcan/ClientService.java,c\9\c9d1b4b8e879e21304c35ab4cefa3a0bad63cafc
 D
 src/Server/Main.java,a\b\abc6b74cc61764fea9cb4e13e5118819dec580ba
+J
+src/Server/ChatServer.java,0\4\044bbc3d18912bc41def81bdb19ca3c8eab6af5e
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+F
+src/Logic/Message.java,a\6\a6207e8c0dc71e4f5877e4e8ff6bf4ebc1b3c3bc

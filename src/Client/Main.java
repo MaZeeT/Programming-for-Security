@@ -2,6 +2,9 @@ package Client;
 
 import Client.GUI.ChatGUI;
 import Client.GUI.IGUI;
+import Network.BaseChatConnection;
+import Network.ClientChatConnection;
+import Server.ChatServer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -19,6 +22,7 @@ public class Main extends Application {
         //test population of gui textarea
         String[] messages = {"lol","more lol","text string"};
         gui.setChat(messages);
+        BaseChatConnection chatConnection = new ClientChatConnection(3000);
     }
 
 

@@ -9,5 +9,5 @@ public class ServerChatConnection extends BaseChatConnection {
         super(new ServerSocket(port).accept());
     }
 
-    
+
 }
