@@ -4,12 +4,12 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public abstract class BaseChatConnection {
+public class BaseChatConnection {
     Socket socket;
     ObjectOutputStream outputStream;
     ObjectInputStream inputStream;
 
-    protected BaseChatConnection(Socket socket) throws IOException {
+    public BaseChatConnection(Socket socket) throws IOException {
         this.socket = socket;
         this.outputStream = new ObjectOutputStream(socket.getOutputStream());
         this.inputStream = new ObjectInputStream(socket.getInputStream());
