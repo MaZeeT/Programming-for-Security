@@ -1,6 +1,6 @@
 package Client;
 
-import Network.BaseChatConnection;
+import Network.ChatConnection;
 import Network.Message;
 
 
@@ -11,10 +11,10 @@ import java.net.Socket;
 
 public class ChatClient {
 
-    BaseChatConnection chatConnection;
+    ChatConnection chatConnection;
 
     public ChatClient(String ip, int port) throws IOException {
-        chatConnection = new BaseChatConnection(new Socket(ip, port));
+        chatConnection = new ChatConnection(new Socket(ip, port));
         startSendingThread();
         startReceiving();
     }

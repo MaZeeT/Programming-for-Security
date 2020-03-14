@@ -1,6 +1,6 @@
 package Server;
 
-import Network.BaseChatConnection;
+import Network.ChatConnection;
 import Network.Message;
 
 import java.io.BufferedReader;
@@ -9,10 +9,10 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 
 public class ChatServer {
-    BaseChatConnection chatConnection;
+    ChatConnection chatConnection;
 
     public ChatServer(int port) throws IOException {
-        chatConnection = new BaseChatConnection(new ServerSocket(port).accept());
+        chatConnection = new ChatConnection(new ServerSocket(port).accept());
         startSendingThread();
         startReceiving();
     }
