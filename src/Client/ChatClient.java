@@ -4,7 +4,9 @@ import Network.BaseChatConnection;
 import Network.Message;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 
 public class ChatClient {
@@ -23,7 +25,9 @@ public class ChatClient {
         new Thread(() -> {
             while (true) {
                 try {
-                    chatConnection.send();
+                    BufferedReader socketRead = new BufferedReader(new InputStreamReader(System.in));
+                    Message message = new Message("Console", socketRead.readLine());
+                    sendMessage(message);
                 } catch (IOException e) {
                     System.out.println(e.toString());
                 }

@@ -23,11 +23,4 @@ public class BaseChatConnection {
         outputStream.flush();
     }
 
-    public void send() throws IOException {
-        BufferedReader socketRead = new BufferedReader(new InputStreamReader(inputStream));
-        Message message = new Message("Console", socketRead.readLine());
-        outputStream.writeObject(message);
-        outputStream.flush();
-    }
-
 }
