@@ -1,5 +1,6 @@
 package Client.GUI;
 
+import Network.ChatConnection;
 import javafx.scene.Scene;
 
 public class ChatGUI implements IGUI {
@@ -9,6 +10,10 @@ public class ChatGUI implements IGUI {
     public ChatGUI(int x, int y) {
         view = new ChatView(x, y);
         controller = new ChatController(view);
+    }
+
+    public void setConnection(ChatConnection connection){
+        controller.setConnection(connection);
     }
 
     @Override

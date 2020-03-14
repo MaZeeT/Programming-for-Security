@@ -16,6 +16,7 @@ public class ChatView extends View {
     protected TextArea textArea = new TextArea();
 
     //field to enter chat text
+    protected TextField username = new TextField("GUI");
     protected TextField textField = new TextField();
 
     //button to submit a message to the system
@@ -25,6 +26,8 @@ public class ChatView extends View {
         int width = 5000;
         textArea.setEditable(false);
 
+        username.setMinWidth(100);
+        username.setMaxWidth(150);
         textField.setPrefWidth(width);
         textField.setMaxWidth(width);
 
@@ -32,6 +35,7 @@ public class ChatView extends View {
 
         //Box to align the bottom part of the pane
         HBox bottomBox = new HBox();
+        bottomBox.getChildren().add(username);
         bottomBox.getChildren().add(textField);
         bottomBox.getChildren().add(submitButton);
 
