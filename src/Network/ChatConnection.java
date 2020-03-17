@@ -2,11 +2,14 @@ package Network;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
-public class ChatConnection {
+public class ChatConnection implements Runnable{
     Socket socket;
     ObjectOutputStream outputStream;
     ObjectInputStream inputStream;
+    boolean isReceiving = false;
+    List<Message> returnMessages;
 
     public ChatConnection(Socket socket) throws IOException {
         this.socket = socket;
@@ -23,4 +26,24 @@ public class ChatConnection {
         outputStream.flush();
     }
 
+    public void startReceiving(List<Message> returnMessages) {
+        this.returnMessages = returnMessages;
+        isReceiving = true;
+    }
+
+    public void stopReceiving() {
+        isReceiving = false;
+    }
+
+    @Override
+    public void run() {
+        while (isReceiving) {
+            try {
+                Message message = receive();
+                returnMessages.add(message);
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
 }
