@@ -16,8 +16,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         String ip = "127.0.0.1";
         int port = 3000;
-        launchGUI(primaryStage,ip,port);
-        //launchConsole(ip,port);
+        //launchGUI(primaryStage,ip,port);
+        launchConsole(ip,port);
 
     }
 

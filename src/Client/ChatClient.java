@@ -27,7 +27,7 @@ public class ChatClient {
                 try {
                     BufferedReader socketRead = new BufferedReader(new InputStreamReader(System.in));
                     Message message = new Message("Console", socketRead.readLine());
-                    sendMessage(message);
+                    chatConnection.send(message);
                 } catch (IOException e) {
                     System.out.println(e.toString());
                 }
@@ -50,15 +50,5 @@ public class ChatClient {
     public void stopReceiving() {
         isReceiving = false;
     }
-
-    public void sendMessage(Message message) {
-        try {
-            chatConnection.send(message);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-
-    }
-
 
 }
