@@ -25,7 +25,7 @@ public class ChatServer {
         }
     }
 
-    private void startSendingThread() {
+    public void startSendingThread() {
         new Thread(() -> {
             while (true) {
                 try {

@@ -37,9 +37,11 @@ public class ChatServerMessagePassOn {
         }).start();
     }
 
-    boolean isReceiving = true;
+    public void sendMessage(Message message) throws IOException {
+        chatConnection.send(message);
+    }
 
-    private void startSendingThread() {
+    public void startSendingThread() {
         new Thread(() -> {
             while (true) {
                 try {
@@ -55,24 +57,22 @@ public class ChatServerMessagePassOn {
         }).start();
     }
 
-    private void sendMessage(Message message) throws IOException {
-        chatConnection.send(message);
-    }
+    boolean isReceiving = true;
 
     public void startReceiving() {
         new Thread(() -> {
-        isReceiving = true;
-        while (isReceiving) {
-            try {
-                Message message = chatConnection.receive();
-                System.out.println("Received: " + message);
+            isReceiving = true;
+            while (isReceiving) {
+                try {
+                    Message message = chatConnection.receive();
+                    System.out.println("Received: " + message);
 
-                messageHistory.add(message);
-                chatConnection.send(message);
-            } catch (Exception e) {
-                System.out.println(e.toString());
+                    messageHistory.add(message);
+                    chatConnection.send(message);
+                } catch (Exception e) {
+                    System.out.println(e.toString());
+                }
             }
-        }
         }).start();
     }
 
