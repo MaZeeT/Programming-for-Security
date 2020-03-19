@@ -17,7 +17,13 @@ public class ChatServer {
         startReceiving();
     }
 
-    boolean isReceiving = true;
+    public void sendMessage(Message message) {
+        try {
+            chatConnection.send(message);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
 
     private void startSendingThread() {
         new Thread(() -> {
@@ -32,6 +38,8 @@ public class ChatServer {
             }
         }).start();
     }
+
+    boolean isReceiving = true;
 
     public void startReceiving() {
         isReceiving = true;
@@ -49,12 +57,5 @@ public class ChatServer {
         isReceiving = false;
     }
 
-    public void sendMessage(Message message) {
-        try {
-            chatConnection.send(message);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
 
-    }
 }

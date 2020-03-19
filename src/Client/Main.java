@@ -3,6 +3,7 @@ package Client;
 import Client.GUI.ChatGUI;
 import Client.GUI.IGUI;
 import Network.ChatConnection;
+import Network.Message;
 import Server.ChatServer;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -42,6 +43,10 @@ public class Main extends Application {
     private void launchConsole(String ip, int port) throws IOException {
         System.out.println("Hello world, I am mr. client");
         ChatClient client = new ChatClient(ip,port);
+
+        // let you type from console when startSendingThread is called
+        client.startSendingThread();
+
 
     }
 
