@@ -1,5 +1,6 @@
 package Client;
 
+import ChatEvents.EventStore;
 import Network.ChatConnection;
 import Network.Message;
 
@@ -53,6 +54,7 @@ public class ChatClient {
             while (isReceiving) {
                 try {
                     Message message = chatConnection.receive();
+                    EventStore.receiveMessageEvent.publishEvent(message);
                     messageHistory.add(message);
                     System.out.println(message);
                 } catch (Exception e) {
