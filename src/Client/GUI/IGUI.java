@@ -1,7 +1,6 @@
 package Client.GUI;
 
 import Client.ChatClient;
-import Network.ChatConnection;
 import Network.Message;
 import javafx.scene.Scene;
 

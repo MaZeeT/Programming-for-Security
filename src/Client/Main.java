@@ -13,7 +13,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         String ip = "127.0.0.1";
         int port = 3000;
-        ClientEventReceive test = new ClientEventReceive();
         //launchGUI(primaryStage,ip,port);
         launchConsole(ip,port);
     }
@@ -36,11 +35,7 @@ public class Main extends Application {
     private void launchConsole(String ip, int port) throws IOException {
         System.out.println("Hello world, I am mr. client");
         ChatClient client = new ChatClient(ip,port);
-
-        // let you type from console when startSendingThread is called
-        client.startSendingThread();
-
-
+        ChatConsoleUI console = new ChatConsoleUI();
     }
 
 }

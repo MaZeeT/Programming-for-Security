@@ -1,18 +1,16 @@
 package Client;
 
-import ChatEvents.EventStore;
+import ChatEvents.EventNotifier;
+import ChatEvents.EventSubscriber;
 import Network.ChatConnection;
 import Network.Message;
 
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ChatClient {
+public class ChatClient implements EventSubscriber<Message> {
 
     ChatConnection chatConnection;
     List<Message> messageHistory;
@@ -20,30 +18,17 @@ public class ChatClient {
     public ChatClient(String ip, int port) throws IOException {
         chatConnection = new ChatConnection(new Socket(ip, port));
         messageHistory = new LinkedList<>();
+        EventNotifier.messageSent.subscribe(this);
         startReceiving();
     }
 
 
-    public void sendMessage(Message message) {
+    private void sendMessage(Message message) {
         try {
             chatConnection.send(message);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-    }
-
-    public void startSendingThread() {
-        new Thread(() -> {
-            while (true) {
-                try {
-                    BufferedReader socketRead = new BufferedReader(new InputStreamReader(System.in));
-                    Message message = new Message("Client", socketRead.readLine());
-                    sendMessage(message);
-                } catch (IOException e) {
-                    System.out.println(e.toString());
-                }
-            }
-        }).start();
     }
 
     boolean isReceiving = true;
@@ -54,9 +39,9 @@ public class ChatClient {
             while (isReceiving) {
                 try {
                     Message message = chatConnection.receive();
-                    EventStore.receiveMessageEvent.publishEvent(message);
+                    EventNotifier.messageReceived.publishEvent(message);
                     messageHistory.add(message);
-                    System.out.println(message);
+                    //  System.out.println(message);
                 } catch (Exception e) {
                     System.out.println(e.toString());
                 }
@@ -68,8 +53,12 @@ public class ChatClient {
         isReceiving = false;
     }
 
-    public List<Message> getMessageHistory(){
+    public List<Message> getMessageHistory() {
         return messageHistory;
     }
 
+    @Override
+    public void eventUpdate(Message message) {
+        sendMessage(message);
+    }
 }

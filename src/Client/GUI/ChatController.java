@@ -1,5 +1,6 @@
 package Client.GUI;
 
+import ChatEvents.EventNotifier;
 import Client.ChatClient;
 import Network.ChatConnection;
 import Network.Message;
@@ -26,8 +27,9 @@ public class ChatController {
             String username = view.username.getText();
             String input = view.textField.getText();
             Message message = new Message(username, input);
+            EventNotifier.messageSent.publishEvent(message); //todo event publish
             try{
-                client.sendMessage(message);
+              //  client.sendMessage(message); //todo fix this
             }catch (Exception e){
                 System.out.println(e.toString());
             }
