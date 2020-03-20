@@ -1,7 +1,10 @@
 package Client.GUI;
 
-import Network.ChatConnection;
+import Client.ChatClient;
+import Network.Message;
 import javafx.scene.Scene;
+
+import java.util.List;
 
 public class ChatGUI implements IGUI {
     ChatView view;
@@ -12,8 +15,9 @@ public class ChatGUI implements IGUI {
         controller = new ChatController(view);
     }
 
-    public void setConnection(ChatConnection connection){
-        controller.setConnection(connection);
+    @Override
+    public void setClient(ChatClient client) {
+        controller.setConnection(client);
     }
 
     @Override
@@ -22,9 +26,16 @@ public class ChatGUI implements IGUI {
     }
 
     @Override
-    public void setChat(String[] messages) {
-        for (String message : messages) {
-            view.textArea.appendText(message + System.lineSeparator());
-        }
+    public void setChat(List<Message> messageHistory) {
+        new Thread(() -> {
+            int i = 0;
+            while (true) {
+                if (i < messageHistory.size()) {
+                    view.textArea.appendText(messageHistory.get(i).toString() + System.lineSeparator());
+                    i++;
+                }
+                System.out.println(i); //todo figure out why this is needed to display message in gui
+            }
+        }).start();
     }
 }

@@ -13,11 +13,11 @@ public class ChatView extends View {
     }
 
     //textArea to show the chat history
-    protected TextArea textArea = new TextArea();
+    protected TextArea textArea = new TextArea("");
 
     //field to enter chat text
     protected TextField username = new TextField("GUI");
-    protected TextField textField = new TextField();
+    protected TextField textField = new TextField("");
 
     //button to submit a message to the system
     protected Button submitButton = new Button("Enter");
