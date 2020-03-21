@@ -58,7 +58,7 @@ public class ChatClient implements EventSubscriber<Message> {
     }
 
     @Override
-    public void eventUpdate(Message message) {
+    public void eventUpdate(Message message, String eventName) {
         sendMessage(message);
     }
 }

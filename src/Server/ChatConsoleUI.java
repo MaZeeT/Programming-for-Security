@@ -1,4 +1,4 @@
-package Client;
+package Server;
 
 import ChatEvents.EventNotifier;
 import ChatEvents.EventSubscriber;
@@ -24,8 +24,8 @@ public class ChatConsoleUI implements EventSubscriber<Message> {
             while (true) {
                 try {
                     BufferedReader socketRead = new BufferedReader(new InputStreamReader(System.in));
-                    Message message = new Message("Client", socketRead.readLine());
-                    EventNotifier.messageSent.publishEvent(message);
+                    Message message = new Message("Server", socketRead.readLine());
+                    EventNotifier.messageReceived.publishEvent(message);
                 } catch (IOException e) {
                     System.out.println(e.toString());
                 }
