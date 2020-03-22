@@ -1,4 +1,4 @@
-package Client.GUI;
+package UI.GUI;
 
 import Client.ChatClient;
 import Network.Message;

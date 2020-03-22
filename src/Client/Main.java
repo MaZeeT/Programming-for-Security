@@ -1,7 +1,8 @@
 package Client;
 
-import Client.GUI.ChatGUI;
-import Client.GUI.IGUI;
+import UI.GUI.ChatGUI;
+import UI.GUI.IGUI;
+import UI.TerminalUI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -35,7 +36,7 @@ public class Main extends Application {
     private void launchConsole(String ip, int port) throws IOException {
         System.out.println("Hello world, I am mr. client");
         ChatClient client = new ChatClient(ip,port);
-        ChatConsoleUI console = new ChatConsoleUI();
+        TerminalUI ui = new TerminalUI("ClientTerminal");
     }
 
 }

@@ -1,4 +1,4 @@
-package Client.GUI;
+package UI.GUI;
 
 import ChatEvents.EventNotifier;
 import Client.ChatClient;

@@ -11,7 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ChatClient implements EventSubscriber<Message> {
-
     ChatConnection chatConnection;
     List<Message> messageHistory;
 
@@ -41,7 +40,6 @@ public class ChatClient implements EventSubscriber<Message> {
                     Message message = chatConnection.receive();
                     EventNotifier.messageReceived.publishEvent(message);
                     messageHistory.add(message);
-                    //  System.out.println(message);
                 } catch (Exception e) {
                     System.out.println(e.toString());
                 }
