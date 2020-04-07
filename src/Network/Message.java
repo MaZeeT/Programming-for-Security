@@ -7,11 +7,11 @@ import java.util.Arrays;
 import java.util.Date;
 
 public class Message implements Serializable {
-    String username;
-    String message;
-    byte[] signature;
-    Date date;
-    SimpleDateFormat fDate = new SimpleDateFormat("hh:mm");
+    private String username;
+    private String message;
+    private byte[] signature;
+    private Date date;
+    private SimpleDateFormat fDate = new SimpleDateFormat("hh:mm");
 
     public Message(String username, String message) {
         this.username = username;
@@ -28,13 +28,24 @@ public class Message implements Serializable {
         }
     }
 
-    public boolean verifyMessage(byte[] verificationSignature) {
-        return Arrays.equals(signature, verificationSignature);
-    }
-
     @Override
     public String toString() {
         return fDate.format(date) + " - " + username + " says: " + message;
     }
-    
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public byte[] getSignature() {
+        return signature;
+    }
+
+    public Date getDate() {
+        return date;
+    }
 }

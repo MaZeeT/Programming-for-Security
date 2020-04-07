@@ -29,7 +29,6 @@ public class ChatClient implements EventSubscriber<Message> {
             System.out.println(e.toString());
         }
     }
-
     boolean isReceiving = true;
 
     public void startReceiving() {
