@@ -1,22 +1,29 @@
 package Network;
 
+import org.bouncycastle.util.encoders.Hex;
+
 import java.io.Serializable;
-import java.security.KeyPair;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 
 public class Message implements Serializable {
-    private String username;
-    private String message;
-    private byte[] signature;
-    private Date date;
-    private SimpleDateFormat fDate = new SimpleDateFormat("hh:mm");
+    final String username;
+    final String message;
+    byte[] signature;
+    final Date date;
+    final SimpleDateFormat fDate = new SimpleDateFormat("hh:mm");
 
     public Message(String username, String message) {
         this.username = username;
         this.message = message;
         this.date = new Date();
+    }
+
+    public Message(Message messageToCopy, byte[] cipherText) {
+        this.username = messageToCopy.Username();
+        this.message = Hex.toHexString(cipherText);
+        this.signature = messageToCopy.Signature();
+        this.date = messageToCopy.Date();
     }
 
     public boolean signMessage(byte[] signature) {
@@ -33,19 +40,19 @@ public class Message implements Serializable {
         return fDate.format(date) + " - " + username + " says: " + message;
     }
 
-    public String getUsername() {
+    public String Username() {
         return username;
     }
 
-    public String getMessage() {
+    public String Message() {
         return message;
     }
 
-    public byte[] getSignature() {
+    public byte[] Signature() {
         return signature;
     }
 
-    public Date getDate() {
+    public Date Date() {
         return date;
     }
 }

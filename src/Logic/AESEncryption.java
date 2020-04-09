@@ -1,5 +1,6 @@
 package Logic;
 
+import Network.Message;
 import org.bouncycastle.util.encoders.Hex;
 
 import javax.crypto.Cipher;

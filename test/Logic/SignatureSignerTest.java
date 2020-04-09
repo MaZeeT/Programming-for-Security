@@ -4,7 +4,6 @@ import Network.Message;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigInteger;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
@@ -43,9 +42,9 @@ class SignatureSignerTest {
     void signMessage() {
         Message message = new Message("signTester", "Hello");
 
-        boolean isSignedBefore = message.getSignature() != null;
+        boolean isSignedBefore = message.Signature() != null;
         SignatureSigner.Sign(message, privateKey);
-        boolean isSignedAfter = message.getSignature() != null;
+        boolean isSignedAfter = message.Signature() != null;
 
         assertFalse(isSignedBefore);
         assertTrue(isSignedAfter);
@@ -57,7 +56,7 @@ class SignatureSignerTest {
 
         boolean firstSigning = SignatureSigner.Sign(message, privateKey);
         boolean secondSigning = SignatureSigner.Sign(message, privateKey);
-        boolean isSigned = message.getSignature() != null;
+        boolean isSigned = message.Signature() != null;
 
         assertTrue(firstSigning);
         assertFalse(secondSigning);
