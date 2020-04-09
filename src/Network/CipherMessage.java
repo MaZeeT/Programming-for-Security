@@ -17,4 +17,8 @@ public class CipherMessage extends Message implements Serializable {
         this.iv = iv;
     }
 
+    public byte[] Iv(){
+        return iv;
+    }
+
 }
