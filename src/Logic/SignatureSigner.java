@@ -8,7 +8,11 @@ import java.security.interfaces.RSAPublicKey;
 
 public class SignatureSigner {
 
-    public static boolean Sign(Message message, RSAPrivateKey privateKey) {
+    public static boolean sign(Message message, KeyPair keyPair){
+        return sign(message, (RSAPrivateKey) keyPair.getPrivate());
+    }
+
+    public static boolean sign(Message message, RSAPrivateKey privateKey) {
         try {
             byte[] inputMessage = message.toString().getBytes();
             Signature signature = Signature.getInstance("SHA256withRSA", "BC");
@@ -20,7 +24,11 @@ public class SignatureSigner {
         }
     }
 
-    public static boolean Verify(Message message, RSAPublicKey publicKey) {
+    public static boolean verify(Message message, KeyPair keyPair){
+        return verify(message,(RSAPublicKey) keyPair.getPublic());
+    }
+
+    public static boolean verify(Message message, RSAPublicKey publicKey) {
         try {
             byte[] inputMessage = message.toString().getBytes();
             Signature signature = Signature.getInstance("SHA256withRSA", "BC");

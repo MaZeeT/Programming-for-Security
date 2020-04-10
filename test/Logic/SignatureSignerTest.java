@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
@@ -14,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class SignatureSignerTest {
-    KeyPairGenerator generator;
     KeyPair keyPair;
     RSAPrivateKey privateKey;
     RSAPublicKey publicKey;
@@ -23,18 +21,11 @@ class SignatureSignerTest {
     @BeforeEach
     void setUp() {
         try {
-            generator = KeyPairGenerator.getInstance("RSA", "BC");
-
-            //initialize the generator with a key size (could be a random size9
-            generator.initialize(2048);
-
-            //generate a key pair
-            keyPair = generator.generateKeyPair();
+            keyPair = KeyMaster.generateKeyPair();
             privateKey = (RSAPrivateKey) keyPair.getPrivate();
             publicKey = (RSAPublicKey) keyPair.getPublic();
-            falsePublicKey = (RSAPublicKey) generator.generateKeyPair().getPublic();
-        } catch (Exception e) {
-            e.printStackTrace();
+            falsePublicKey = (RSAPublicKey) KeyMaster.generateKeyPair().getPublic();
+        } catch (Exception ignored) {
         }
     }
 
@@ -43,7 +34,7 @@ class SignatureSignerTest {
         Message message = new Message("signTester", "Hello");
 
         boolean isSignedBefore = message.signature() != null;
-        SignatureSigner.Sign(message, privateKey);
+        SignatureSigner.sign(message, privateKey);
         boolean isSignedAfter = message.signature() != null;
 
         assertFalse(isSignedBefore);
@@ -54,8 +45,8 @@ class SignatureSignerTest {
     void signMessageTwice() {
         Message message = new Message("signTester", "Hello");
 
-        boolean firstSigning = SignatureSigner.Sign(message, privateKey);
-        boolean secondSigning = SignatureSigner.Sign(message, privateKey);
+        boolean firstSigning = SignatureSigner.sign(message, privateKey);
+        boolean secondSigning = SignatureSigner.sign(message, privateKey);
         boolean isSigned = message.signature() != null;
 
         assertTrue(firstSigning);
@@ -67,8 +58,8 @@ class SignatureSignerTest {
     void verifySignatureTrue() {
         Message message = new Message("signTester", "Hello");
 
-        boolean isSigned = SignatureSigner.Sign(message, privateKey);
-        boolean verified = SignatureSigner.Verify(message, publicKey);
+        boolean isSigned = SignatureSigner.sign(message, privateKey);
+        boolean verified = SignatureSigner.verify(message, publicKey);
 
         assertTrue(isSigned);
         assertTrue(verified);
@@ -78,8 +69,8 @@ class SignatureSignerTest {
     void verifySignatureFalse() {
         Message message = new Message("signTester", "Hello");
 
-        boolean isSigned = SignatureSigner.Sign(message, privateKey);
-        boolean verified = SignatureSigner.Verify(message, falsePublicKey);
+        boolean isSigned = SignatureSigner.sign(message, privateKey);
+        boolean verified = SignatureSigner.verify(message, falsePublicKey);
 
         assertTrue(isSigned);
         assertFalse(verified);
