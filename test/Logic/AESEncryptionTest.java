@@ -2,8 +2,6 @@ package Logic;
 
 import Network.CipherMessage;
 import Network.Message;
-import org.bouncycastle.util.encoders.Base64;
-import org.bouncycastle.util.encoders.Hex;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,17 +9,15 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AESEncryptionTest {
     AESEncryption aes;
+    byte[] iv;
 
     @BeforeEach
     void setUp() {
-        String iv = "9f741fdb5d8845bdb48a94394e84f8a3";
-
         try {
             char[] password = {'p', 'a', 's', 's', 'w', 'o', 'r', 'd'};
             byte[] salt = {0, 1};
@@ -30,7 +26,8 @@ class AESEncryptionTest {
                     new PBEKeySpec(password, salt, 10, 128)
             ).getEncoded();
             SecretKeySpec key = new SecretKeySpec(keyBytes, "AES");
-            aes = new AESEncryption(key, iv);
+            aes = new AESEncryption(key);
+            iv = aes.RandomIV();
         } catch (Exception ignored) {
         }
 
@@ -38,23 +35,26 @@ class AESEncryptionTest {
 
     @Test
     void encrypt() {
-        byte[] plainText = Hex.decode("a0a1a2a3a4a5a6a7a0a1a2a3a4a5a6a7");
-        byte[] cipherText = aes.Encrypt(plainText);
+        String before ="a0a1a2a3a4a5a6a7a0a1a2a3a4a5a6a7";
 
-        assertFalse(Arrays.equals(plainText, cipherText));
+        byte[] plainText = before.getBytes(StandardCharsets.UTF_8);
+        byte[] cipherText = aes.Encrypt(plainText, iv);
+        String after = new String(cipherText,StandardCharsets.UTF_8);
+
+        assertNotEquals(before, after);
     }
 
     @Test
     void decrypt() {
+        String before = "Hello with you";
 
+        byte[] plainText = before.getBytes(StandardCharsets.UTF_8);
+        byte[] cipherText = aes.Encrypt(plainText, iv);
+        byte[] decryptText = aes.Decrypt(cipherText, iv);
 
-        //byte[] plainText = "hej".getBytes(StandardCharsets.UTF_8);
-        //System.out.println(new String(decryptText, StandardCharsets.UTF_8));
-        byte[] plainText = Hex.decode("a0a1a2a3a4a5a6a7a0a1a2a3a4a5a6a7");
-        byte[] cipherText = aes.Encrypt(plainText);
-        byte[] decryptText = aes.Decrypt(cipherText);
+        String after = new String(decryptText, StandardCharsets.UTF_8);
 
-        assertTrue(Arrays.equals(plainText, decryptText));
+        assertEquals(before, after);
     }
 
     @Test

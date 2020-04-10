@@ -1,7 +1,5 @@
 package Network;
 
-import org.bouncycastle.util.encoders.Hex;
-
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -26,8 +24,6 @@ public class Message implements Serializable {
         this.signature = messageToCopy.signature();
         this.date = messageToCopy.date();
     }
-
-    //System.out.println(new String(decryptText, StandardCharsets.UTF_8));
 
     public boolean signMessage(byte[] signature) {
         if (this.signature == null) {

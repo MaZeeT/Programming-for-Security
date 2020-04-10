@@ -2,7 +2,6 @@ package Logic;
 
 import Network.CipherMessage;
 import Network.Message;
-import org.bouncycastle.util.encoders.Hex;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -14,12 +13,10 @@ import java.security.SecureRandom;
 
 public class AESEncryption {
     SecretKeySpec key;
-    byte[] iv;
     Cipher cipher;
 
-    public AESEncryption(SecretKeySpec key, String iv) {
+    public AESEncryption(SecretKeySpec key) {
         this.key = key;
-        this.iv = Hex.decode(iv);
         try {
             this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "BC");
         } catch (Exception e) {
@@ -52,7 +49,7 @@ public class AESEncryption {
         }
     }
 
-    public byte[] Encrypt(byte[] input) {
+    public byte[] Encrypt(byte[] input, byte[] iv) {
         try {
             cipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(iv));
             return cipher.doFinal(input);
@@ -62,7 +59,7 @@ public class AESEncryption {
         }
     }
 
-    public byte[] Decrypt(byte[] input){
+    public byte[] Decrypt(byte[] input, byte[] iv){
         try {
             cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(iv));
             return cipher.doFinal(input);
@@ -72,7 +69,7 @@ public class AESEncryption {
         }
     }
 
-    private byte[] RandomIV() throws NoSuchProviderException, NoSuchAlgorithmException {
+    public byte[] RandomIV() throws NoSuchProviderException, NoSuchAlgorithmException {
             SecureRandom secureRandom = SecureRandom.getInstance("DEFAULT", "BC");
             byte[] iv = new byte[16];
             secureRandom.nextBytes(iv);
