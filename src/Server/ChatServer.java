@@ -54,7 +54,10 @@ public class ChatServer implements EventSubscriber<Message> {
             while (isReceiving) {
                 try {
                     Message message = chatConnection.receive();
-                    EventNotifier.messageReceived.publishEvent(message);
+                    if (!messageHistory.contains(message)) {
+                        messageHistory.add(message);
+                        EventNotifier.messageReceived.publishEvent(message);
+                    }
                 } catch (Exception e) {
                     System.out.println(e.toString());
                 }

@@ -22,7 +22,9 @@ public class TerminalUI implements EventSubscriber<Message> {
     public void eventUpdate(Message message, String eventName) {
         switch (eventName) {
             case "messageSent":
-                System.out.println(message);
+                //Special case to let the server see its one messages since the clients will not echo the message back as the server will for the clients.
+                if (message.username().equals("ServerTerminal")) System.out.println(message);
+             //   System.out.println(message);
                 break;
             case "messageReceived":
                 System.out.println(message);
