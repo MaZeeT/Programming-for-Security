@@ -73,10 +73,6 @@ class AESEncryptionTest {
         CipherMessage cipherMessage = aes.Encrypt(plainMessage);
         Message decryptMessage = aes.Decrypt(cipherMessage);
 
-        System.out.println(plainMessage);
-        System.out.println(cipherMessage);
-        System.out.println(decryptMessage);
-
         assertNotEquals(plainMessage.message(), cipherMessage.message());
         assertNotEquals(cipherMessage.message(), decryptMessage.message());
         assertEquals(plainMessage.message(), decryptMessage.message());
