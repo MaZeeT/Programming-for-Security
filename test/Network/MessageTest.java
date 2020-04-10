@@ -18,7 +18,7 @@ class MessageTest {
         boolean firstSign = message.signMessage(signature);
 
         assertTrue(firstSign);
-        assertArrayEquals(message.Signature(), signature);
+        assertArrayEquals(message.signature(), signature);
     }
 
     @Test
@@ -34,8 +34,8 @@ class MessageTest {
 
         assertTrue(firstSign);
         assertFalse(secondSign);
-        assertTrue(Arrays.equals(message.Signature(),signatureA));
-        assertFalse(Arrays.equals(message.Signature(),signatureB));
+        assertTrue(Arrays.equals(message.signature(),signatureA));
+        assertFalse(Arrays.equals(message.signature(),signatureB));
     }
 
     @Test

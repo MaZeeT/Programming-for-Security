@@ -26,7 +26,7 @@ public class SignatureSigner {
             Signature signature = Signature.getInstance("SHA256withRSA", "BC");
             signature.initVerify(publicKey);
             signature.update(inputMessage);
-            return signature.verify(message.Signature());
+            return signature.verify(message.signature());
         } catch (Exception e) {
             return false;
         }

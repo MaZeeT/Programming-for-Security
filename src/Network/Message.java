@@ -3,6 +3,7 @@ package Network;
 import org.bouncycastle.util.encoders.Hex;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,11 +21,13 @@ public class Message implements Serializable {
     }
 
     public Message(Message messageToCopy, byte[] cipherText) {
-        this.username = messageToCopy.Username();
-        this.message = Hex.toHexString(cipherText);
-        this.signature = messageToCopy.Signature();
-        this.date = messageToCopy.Date();
+        this.username = messageToCopy.username();
+        this.message = new String(cipherText, StandardCharsets.UTF_8);
+        this.signature = messageToCopy.signature();
+        this.date = messageToCopy.date();
     }
+
+    //System.out.println(new String(decryptText, StandardCharsets.UTF_8));
 
     public boolean signMessage(byte[] signature) {
         if (this.signature == null) {
@@ -40,19 +43,19 @@ public class Message implements Serializable {
         return fDate.format(date) + " - " + username + " says: " + message;
     }
 
-    public String Username() {
+    public String username() {
         return username;
     }
 
-    public String Message() {
+    public String message() {
         return message;
     }
 
-    public byte[] Signature() {
+    public byte[] signature() {
         return signature;
     }
 
-    public Date Date() {
+    public Date date() {
         return date;
     }
 }

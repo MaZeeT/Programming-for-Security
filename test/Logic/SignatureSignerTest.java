@@ -42,9 +42,9 @@ class SignatureSignerTest {
     void signMessage() {
         Message message = new Message("signTester", "Hello");
 
-        boolean isSignedBefore = message.Signature() != null;
+        boolean isSignedBefore = message.signature() != null;
         SignatureSigner.Sign(message, privateKey);
-        boolean isSignedAfter = message.Signature() != null;
+        boolean isSignedAfter = message.signature() != null;
 
         assertFalse(isSignedBefore);
         assertTrue(isSignedAfter);
@@ -56,7 +56,7 @@ class SignatureSignerTest {
 
         boolean firstSigning = SignatureSigner.Sign(message, privateKey);
         boolean secondSigning = SignatureSigner.Sign(message, privateKey);
-        boolean isSigned = message.Signature() != null;
+        boolean isSigned = message.signature() != null;
 
         assertTrue(firstSigning);
         assertFalse(secondSigning);
