@@ -122,6 +122,13 @@ class KeyMasterTest {
         assertNotEquals(keyPairA, keyPairB);
     }
 
+
+
+    @Test
+    void zeroPublicKeys() {
+
+    }
+
     @Test
     void publicKeyOf() {
     }

@@ -7,7 +7,6 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
@@ -18,48 +17,56 @@ public class KeyMaster {
     KeyPair keyPair; // my private and public key
     Map<String, RSAPublicKey> keyMap; //map between username and public key.
 
-    public KeyMaster(SecretKeySpec symmetricKey, KeyPair asymmetricKeyPair){
+    public KeyMaster() {
+        this.keyMap = new HashMap<>();
+    }
+
+    public KeyMaster(SecretKeySpec symmetricKey, KeyPair asymmetricKeyPair) {
         this.key = symmetricKey;
         this.keyPair = asymmetricKeyPair;
         this.keyMap = new HashMap<>();
     }
 
-    public SecretKeySpec symmetricKey(){
+    public SecretKeySpec symmetricKey() {
         return key;
     }
 
-    public KeyPair asymmetricKeyPair(){
+    public KeyPair asymmetricKeyPair() {
         return keyPair;
     }
 
-    public RSAPublicKey publicKeyOf(String username){
+    public RSAPublicKey publicKeyOf(String username) {
         return keyMap.get(username);
     }
 
-    public void addPublicKey(String username, RSAPublicKey publicKey){
-        keyMap.put(username,publicKey);
+    public void addPublicKey(String username, RSAPublicKey publicKey) {
+        keyMap.put(username, publicKey);
     }
 
-    public void addPublicKey(Map<String,RSAPublicKey> publicKeyMap){
+    public void addPublicKey(Map<String, RSAPublicKey> publicKeyMap) {
         keyMap.putAll(publicKeyMap);
     }
 
+    public int numberOfPublicKeys() {
+        return keyMap.size();
+    }
+
     public static SecretKeySpec generateSecretKey(char[] password, byte[] salt) throws InvalidKeySpecException, NoSuchProviderException, NoSuchAlgorithmException {
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WITHHMACSHA256", "BC");
-            byte[] keyBytes = factory.generateSecret(
-                    new PBEKeySpec(password, salt, 10, 128)
-            ).getEncoded(); //todo change iterationCount
-            return new SecretKeySpec(keyBytes, "AES");
+        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WITHHMACSHA256", "BC");
+        byte[] keyBytes = factory.generateSecret(
+                new PBEKeySpec(password, salt, 10, 128)
+        ).getEncoded(); //todo change iterationCount
+        return new SecretKeySpec(keyBytes, "AES");
     }
 
     public static KeyPair generateKeyPair() throws NoSuchProviderException, NoSuchAlgorithmException {
-            KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA", "BC");
+        KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA", "BC");
 
-            //initialize the generator with a key size (could be a random size)
-            generator.initialize(2048);
+        //initialize the generator with a key size (could be a random size)
+        generator.initialize(2048);
 
-            //generate a key pair
-            return generator.generateKeyPair();
+        //generate a key pair
+        return generator.generateKeyPair();
     }
 
     //todo make test of this keyMaster class
