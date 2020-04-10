@@ -18,10 +18,9 @@ class AESEncryptionTest {
     void setUp() {
         char[] password = {'p', 'a', 's', 's', 'w', 'o', 'r', 'd'};
         byte[] salt = {0, 1};
-        SecretKeySpec key = KeyMaster.generateSecretKey(password, salt);
-        aes = new AESEncryption(key);
-
         try {
+            SecretKeySpec key = KeyMaster.generateSecretKey(password, salt);
+            aes = new AESEncryption(key);
             iv = aes.RandomIV();
         } catch (Exception ignored) {
         }

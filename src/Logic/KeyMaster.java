@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,17 +44,12 @@ public class KeyMaster {
         keyMap.putAll(publicKeyMap);
     }
 
-    public static SecretKeySpec generateSecretKey(char[] password, byte[] salt){
-        try {
+    public static SecretKeySpec generateSecretKey(char[] password, byte[] salt) throws InvalidKeySpecException, NoSuchProviderException, NoSuchAlgorithmException {
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WITHHMACSHA256", "BC");
             byte[] keyBytes = factory.generateSecret(
                     new PBEKeySpec(password, salt, 10, 128)
             ).getEncoded(); //todo change iterationCount
             return new SecretKeySpec(keyBytes, "AES");
-
-        } catch (Exception e) {
-            return null;
-        }
     }
 
     public static KeyPair generateKeyPair() throws NoSuchProviderException, NoSuchAlgorithmException {
