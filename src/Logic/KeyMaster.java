@@ -54,8 +54,8 @@ public class KeyMaster {
     public static SecretKeySpec generateSecretKey(char[] password, byte[] salt) throws InvalidKeySpecException, NoSuchProviderException, NoSuchAlgorithmException {
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WITHHMACSHA256", "BC");
         byte[] keyBytes = factory.generateSecret(
-                new PBEKeySpec(password, salt, 10, 128)
-        ).getEncoded(); //todo change iterationCount
+                new PBEKeySpec(password, salt, 1000, 128)
+        ).getEncoded();
         return new SecretKeySpec(keyBytes, "AES");
     }
 
@@ -68,11 +68,5 @@ public class KeyMaster {
         //generate a key pair
         return generator.generateKeyPair();
     }
-
-    //todo make test of this keyMaster class
-    //todo refactor some key generation into a utility class
-    //todo rename some parts of the program into a component package or Encryption Package?
-    //todo when done with components (see Yed diagram) consider to rework the chatClient/Server.
-    //todo are custom eventHandling still useful or doesn't it solve the problem it is intended for.
 
 }
