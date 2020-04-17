@@ -13,8 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KeyMaster {
-    SecretKeySpec key;  //symmetric key
-    KeyPair keyPair; // my private and public key
+    SecretKeySpec key = null;  //symmetric key
+    KeyPair keyPair = null; // my private and public key
     Map<String, RSAPublicKey> keyMap; //map between username and public key.
 
     public KeyMaster() {
