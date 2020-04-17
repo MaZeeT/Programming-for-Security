@@ -7,10 +7,10 @@ public class Publisher<T> implements EventPublisher<T> {
     private List<EventSubscriber<T>> subscribers = new LinkedList<>();
     String eventName = "event";
 
-    public Publisher(){
+    public Publisher() {
     }
 
-    public Publisher(String eventName){
+    public Publisher(String eventName) {
         this.eventName = eventName;
     }
 
@@ -30,4 +30,5 @@ public class Publisher<T> implements EventPublisher<T> {
             System.out.println("CastException at Publisher");
         }
     }
+
 }
