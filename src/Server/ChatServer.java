@@ -36,12 +36,9 @@ public class ChatServer implements EventSubscriber<Message> {
         chatConnection.send(message);
     }
 
-    boolean isReceiving = true;
-
     public void startReceiving() {
         new Thread(() -> {
-            isReceiving = true;
-            while (isReceiving) {
+            while (true) {
                 announceInput(chatConnection.receive());
             }
         }).start();
@@ -53,10 +50,6 @@ public class ChatServer implements EventSubscriber<Message> {
             sendMessage(message);
             EventNotifier.messageReceived.publishEvent(message);
         }
-    }
-
-    public void stopReceiving() {
-        isReceiving = false;
     }
 
     @Override
@@ -73,4 +66,5 @@ public class ChatServer implements EventSubscriber<Message> {
                 break;
         }
     }
+
 }

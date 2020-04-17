@@ -8,4 +8,5 @@ public class Main {
         ChatServer server = new ChatServer(3000);
         TerminalUI ui = new TerminalUI("ServerTerminal");
     }
+
 }
