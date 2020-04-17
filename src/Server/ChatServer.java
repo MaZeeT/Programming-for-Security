@@ -3,6 +3,7 @@ package Server;
 import ChatEvents.EventNotifier;
 import ChatEvents.EventSubscriber;
 import Network.ChatConnection;
+import Network.CipherMessage;
 import Network.Message;
 
 import java.io.IOException;
@@ -13,10 +14,8 @@ import java.util.List;
 
 public class ChatServer implements EventSubscriber<Message> {
     ChatConnection chatConnection;
-    List<Message> messageHistory;
 
     public ChatServer(int port) throws IOException {
-        messageHistory = new LinkedList<>();
         EventNotifier.messageSent.subscribe(this);
         EventNotifier.messageReceived.subscribe(this);
         acceptConnections(new ServerSocket(port));
@@ -37,7 +36,7 @@ public class ChatServer implements EventSubscriber<Message> {
         }).start();
     }
 
-    public void sendMessage(Message message) {
+    public void sendMessage(Object message) {
         chatConnection.send(message);
     }
 
@@ -47,13 +46,22 @@ public class ChatServer implements EventSubscriber<Message> {
         new Thread(() -> {
             isReceiving = true;
             while (isReceiving) {
-                Message message = (Message) chatConnection.receive();
-                if (!messageHistory.contains(message)) {
-                    messageHistory.add(message);
-                    EventNotifier.messageReceived.publishEvent(message);
-                }
+                announceInput(chatConnection.receive());
             }
         }).start();
+    }
+
+    private void announceInput(Object input) {
+        if (input instanceof Message) {
+            Message message = (Message) input;
+            sendMessage(message);
+            EventNotifier.messageReceived.publishEvent(message);
+        }
+        /*if (input instanceof CipherMessage) {
+            CipherMessage cMessage = (CipherMessage)input;
+            sendMessage(cMessage);
+            EventNotifier.messageReceived.publishEvent(cMessage);
+        }*/
     }
 
     public void stopReceiving() {
@@ -67,7 +75,7 @@ public class ChatServer implements EventSubscriber<Message> {
                 sendMessage(message);
                 break;
             case "messageReceived":
-                EventNotifier.messageSent.publishEvent(message);
+                //EventNotifier.messageSent.publishEvent(message);
                 break;
             default:
                 break;

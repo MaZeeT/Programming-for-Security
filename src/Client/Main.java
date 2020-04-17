@@ -1,12 +1,15 @@
 package Client;
 
+import Logic.KeyMaster;
 import UI.GUI.ChatGUI;
 import UI.GUI.IGUI;
 import UI.TerminalUI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.KeyPair;
+import java.security.interfaces.RSAPublicKey;
 
 public class Main extends Application {
 
@@ -14,18 +17,23 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         String ip = "127.0.0.1";
         int port = 3000;
-        //launchGUI(primaryStage,ip,port);
-        launchConsole(ip,port);
+        char[] password = "HardcodedPasswordIsBad".toCharArray();
+        byte[] salt = {0, 1, 1, 1, 2, 0, 6, 3};
+        SecretKeySpec secretKey = KeyMaster.generateSecretKey(password, salt);
+        KeyPair keyPair = KeyMaster.generateKeyPair();
+        KeyMaster keyMaster = new KeyMaster(secretKey, keyPair);
+        //launchGUI(primaryStage, ip, port, key);
+        launchConsole(ip, port, keyMaster);
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    private void launchGUI(Stage primaryStage, String ip, int port) throws IOException {
+    private void launchGUI(Stage primaryStage, String ip, int port, KeyMaster keyMaster) throws Exception {
         //launch gui + window
-        ChatClient client = new ChatClient(ip,port);
-        IGUI gui = new ChatGUI(800,600);
+        ChatClient client = new ChatClient(ip, port, keyMaster);
+        IGUI gui = new ChatGUI(800, 600);
         gui.setClient(client);
         gui.setChat(client.messageHistory);
         primaryStage.setTitle("ChatCrypt");
@@ -33,10 +41,15 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    private void launchConsole(String ip, int port) throws IOException {
+    private void launchConsole(String ip, int port, KeyMaster keyMaster) throws Exception {
         System.out.println("Hello world, I am mr. client");
-        ChatClient client = new ChatClient(ip,port);
-        TerminalUI ui = new TerminalUI("ClientTerminal");
+        String username = "ClientTerminal";
+
+        RSAPublicKey publicKey = (RSAPublicKey) keyMaster.asymmetricKeyPair().getPublic();
+        keyMaster.addPublicKey(username, publicKey);
+
+        ChatClient client = new ChatClient(ip, port, keyMaster);
+        TerminalUI ui = new TerminalUI(username);
     }
 
 }
