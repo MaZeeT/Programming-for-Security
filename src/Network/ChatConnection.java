@@ -22,9 +22,9 @@ public class ChatConnection {
         }
     }
 
-    public void send(Message message){
+    public void send(Object object){
         try{
-            outputStream.writeObject(message);
+            outputStream.writeObject(object);
             outputStream.flush();
         }catch (IOException e){
             System.out.println("IOException at while sending");
