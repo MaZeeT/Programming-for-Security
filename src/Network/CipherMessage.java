@@ -3,8 +3,8 @@ package Network;
 import java.io.Serializable;
 
 public class CipherMessage extends Message implements Serializable {
-    byte[] iv;
     byte[] cipherText;
+    byte[] iv;
 
     public CipherMessage(Message message, byte[] cipherText, byte[] iv) {
         super(message, cipherText);
@@ -12,12 +12,12 @@ public class CipherMessage extends Message implements Serializable {
         this.iv = iv;
     }
 
-    public byte[] iv(){
-        return iv;
+    public byte[] cipherText() {
+        return cipherText;
     }
 
-    public byte[] cipherText(){
-        return cipherText;
+    public byte[] iv() {
+        return iv;
     }
 
 }

@@ -51,5 +51,5 @@ public class Message implements Serializable {
     public Date date() {
         return date;
     }
-    
+
 }
