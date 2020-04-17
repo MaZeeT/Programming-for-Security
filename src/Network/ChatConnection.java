@@ -14,20 +14,19 @@ public class ChatConnection {
         this.inputStream = new ObjectInputStream(socket.getInputStream());
     }
 
-    public Object receive(){
-        try{
+    public Object receive() {
+        try {
             return inputStream.readObject();
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public void send(Object object){
-        try{
+    public void send(Object object) {
+        try {
             outputStream.writeObject(object);
             outputStream.flush();
-        }catch (IOException e){
-            System.out.println("IOException at while sending");
+        } catch (IOException ignored) {
         }
     }
 
