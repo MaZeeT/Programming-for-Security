@@ -1,26 +1,14 @@
 package Logic;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.KeyPair;
+import java.security.interfaces.RSAPublicKey;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class KeyMasterTest {
-    SecretKeySpec key;
-    KeyPair keyPair;
-    KeyMaster keyMaster;
-
-    @BeforeEach
-    void setUp() {
-        char[] password = {'p', 'a', 's', 's', 'w', 'o', 'r', 'd'};
-        byte[] salt = {0, 1};
-      //  key = KeyMaster.generateSecretKey(password, salt);
-        KeyPair keyPair;
-        // keyMaster = new KeyMaster(key, );
-    }
 
     @Test
     void symmetricKeySamePasswords() {
@@ -121,23 +109,86 @@ class KeyMasterTest {
 
         assertNotEquals(keyPairA, keyPairB);
     }
-//todo make test of this keyMaster class
 
+    @Test
+    void addPublicKey() {
+        KeyMaster keyMaster = new KeyMaster();
+        try {
+            keyMaster.addPublicKey(
+                    "firstKey",
+                    (RSAPublicKey) KeyMaster.generateKeyPair().getPublic());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        int expected = 0;
+        int numberOfKeys = keyMaster.numberOfPublicKeys();
+
+        assertNotEquals(expected, numberOfKeys);
+    }
 
     @Test
     void zeroPublicKeys() {
+        KeyMaster keyMaster = new KeyMaster();
 
+        int expected = 0;
+        int numberOfKeys = keyMaster.numberOfPublicKeys();
+
+        assertEquals(expected, numberOfKeys);
+    }
+
+    @Test
+    void onePublicKeys() {
+        KeyMaster keyMaster = new KeyMaster();
+        RSAPublicKey publicKey = null;
+        try {
+            publicKey = (RSAPublicKey) KeyMaster.generateKeyPair().getPublic();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        keyMaster.addPublicKey("firstKey", publicKey);
+
+        int expected = 1;
+        int numberOfKeys = keyMaster.numberOfPublicKeys();
+
+        assertEquals(expected, numberOfKeys);
+    }
+
+    @Test
+    void twoPublicKeys() {
+        KeyMaster keyMaster = new KeyMaster();
+        RSAPublicKey publicKeyA = null;
+        RSAPublicKey publicKeyB = null;
+        try {
+            publicKeyA = (RSAPublicKey) KeyMaster.generateKeyPair().getPublic();
+            publicKeyB = (RSAPublicKey) KeyMaster.generateKeyPair().getPublic();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        keyMaster.addPublicKey("keyA", publicKeyA);
+        keyMaster.addPublicKey("keyB", publicKeyB);
+
+        int expected = 2;
+        int numberOfKeys = keyMaster.numberOfPublicKeys();
+
+        assertEquals(expected, numberOfKeys);
     }
 
     @Test
     void publicKeyOf() {
+        KeyMaster keyMaster = new KeyMaster();
+        RSAPublicKey publicKeyA = null;
+        RSAPublicKey publicKeyB = null;
+        try {
+            publicKeyA = (RSAPublicKey) KeyMaster.generateKeyPair().getPublic();
+            publicKeyB = (RSAPublicKey) KeyMaster.generateKeyPair().getPublic();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        keyMaster.addPublicKey("keyA", publicKeyA);
+        keyMaster.addPublicKey("keyB", publicKeyB);
+
+        assertEquals(publicKeyB, keyMaster.publicKeyOf("keyB"));
     }
 
-    @Test
-    void addPublicKey() {
-    }
-
-    @Test
-    void testAddPublicKey() {
-    }
 }
