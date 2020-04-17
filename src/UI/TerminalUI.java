@@ -15,6 +15,7 @@ public class TerminalUI implements EventSubscriber<Message> {
         this.username = username;
         EventNotifier.messageSent.subscribe(this);
         EventNotifier.messageReceived.subscribe(this);
+        System.out.println("Hello world, I am mr. " + username);
         startTerminalInput();
     }
 

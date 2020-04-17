@@ -4,9 +4,10 @@ import UI.TerminalUI;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello world, I am mr. server");
+        String username = "ServerTerminal";
+        TerminalUI ui = new TerminalUI(username);
+
         ChatServer server = new ChatServer(3000);
-        TerminalUI ui = new TerminalUI("ServerTerminal");
     }
 
 }

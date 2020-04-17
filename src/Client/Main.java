@@ -31,25 +31,27 @@ public class Main extends Application {
     }
 
     private void launchGUI(Stage primaryStage, String ip, int port, KeyMaster keyMaster) throws Exception {
+        System.out.println("Hello world, I am mr. client");
+        String username = "ClientGUI";
+        RSAPublicKey publicKey = (RSAPublicKey) keyMaster.asymmetricKeyPair().getPublic();
+        keyMaster.addPublicKey(username, publicKey);
+
         //launch gui + window
         ChatClient client = new ChatClient(ip, port, keyMaster);
+
         IGUI gui = new ChatGUI(800, 600);
-        gui.setClient(client);
-        gui.setChat(client.messageHistory);
         primaryStage.setTitle("ChatCrypt");
         primaryStage.setScene(gui.getScene());
         primaryStage.show();
     }
 
     private void launchConsole(String ip, int port, KeyMaster keyMaster) throws Exception {
-        System.out.println("Hello world, I am mr. client");
         String username = "ClientTerminal";
+        TerminalUI ui = new TerminalUI(username);
 
         RSAPublicKey publicKey = (RSAPublicKey) keyMaster.asymmetricKeyPair().getPublic();
         keyMaster.addPublicKey(username, publicKey);
-
         ChatClient client = new ChatClient(ip, port, keyMaster);
-        TerminalUI ui = new TerminalUI(username);
     }
 
 }
