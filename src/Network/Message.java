@@ -26,12 +26,9 @@ public class Message implements Serializable {
     }
 
     public boolean signMessage(byte[] signature) {
-        if (this.signature == null) {
-            this.signature = signature;
-            return true;
-        } else {
-            return false;
-        }
+        boolean signatureIsNull = this.signature == null;
+        if (signatureIsNull) this.signature = signature;
+        return signatureIsNull;
     }
 
     @Override
@@ -54,4 +51,5 @@ public class Message implements Serializable {
     public Date date() {
         return date;
     }
+    
 }
