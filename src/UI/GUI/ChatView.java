@@ -1,18 +1,22 @@
 package UI.GUI;
 
+import ChatEvents.EventNotifier;
+import ChatEvents.EventSubscriber;
+import Network.Message;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
-public class ChatView extends View {
+public class ChatView extends View implements EventSubscriber<Message> {
 
     public ChatView(int x, int y) {
         super(x, y);
         configPane();
+        EventNotifier.messageReceived.subscribe(this);
     }
 
-    //textArea to show the chat history
+    //textArea to show the chat
     protected TextArea textArea = new TextArea("");
 
     //field to enter chat text
@@ -21,6 +25,12 @@ public class ChatView extends View {
 
     //button to submit a message to the system
     protected Button submitButton = new Button("Enter");
+
+    @Override
+    public void eventUpdate(Message event, String eventName) {
+        System.out.println(event);
+        textArea.appendText(event.toString());
+    }
 
     private void configPane() {
         int width = 5000;

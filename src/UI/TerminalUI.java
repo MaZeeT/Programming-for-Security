@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class TerminalUI implements EventSubscriber<Message> {
+public class TerminalUI implements UI, EventSubscriber<Message> {
     private String username;
 
     public TerminalUI(String username) {
