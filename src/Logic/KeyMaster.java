@@ -14,16 +14,16 @@ import java.util.Map;
 
 public class KeyMaster {
     SecretKeySpec key = null;  //symmetric key
-    KeyPair keyPair = null; // my private and public key
-    Map<String, RSAPublicKey> keyMap; //map between username and public key.
+    KeyPair keyPair = null; //private and public key
+    Map<String, RSAPublicKey> keyMap; //map with key:username and value:public key.
 
     public KeyMaster() {
         this.keyMap = new HashMap<>();
     }
 
-    public KeyMaster(SecretKeySpec symmetricKey, KeyPair asymmetricKeyPair) {
-        this.key = symmetricKey;
-        this.keyPair = asymmetricKeyPair;
+    public KeyMaster(SecretKeySpec secretKey, KeyPair keyPair) {
+        this.key = secretKey;
+        this.keyPair = keyPair;
         this.keyMap = new HashMap<>();
     }
 
@@ -43,10 +43,6 @@ public class KeyMaster {
         keyMap.put(username, publicKey);
     }
 
-    public void addPublicKey(Map<String, RSAPublicKey> publicKeyMap) {
-        keyMap.putAll(publicKeyMap);
-    }
-
     public int numberOfPublicKeys() {
         return keyMap.size();
     }
@@ -61,11 +57,7 @@ public class KeyMaster {
 
     public static KeyPair generateKeyPair() throws NoSuchProviderException, NoSuchAlgorithmException {
         KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA", "BC");
-
-        //initialize the generator with a key size (could be a random size)
         generator.initialize(2048);
-
-        //generate a key pair
         return generator.generateKeyPair();
     }
 

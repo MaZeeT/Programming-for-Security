@@ -8,7 +8,7 @@ import java.security.interfaces.RSAPublicKey;
 
 public class SignatureSigner {
 
-    public static boolean sign(Message message, KeyPair keyPair){
+    public static boolean sign(Message message, KeyPair keyPair) {
         return sign(message, (RSAPrivateKey) keyPair.getPrivate());
     }
 
@@ -24,8 +24,8 @@ public class SignatureSigner {
         }
     }
 
-    public static boolean verify(Message message, KeyPair keyPair){
-        return verify(message,(RSAPublicKey) keyPair.getPublic());
+    public static boolean verify(Message message, KeyPair keyPair) {
+        return verify(message, (RSAPublicKey) keyPair.getPublic());
     }
 
     public static boolean verify(Message message, RSAPublicKey publicKey) {

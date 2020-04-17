@@ -31,20 +31,17 @@ public class AESEncryption {
             cipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(iv));
             message = cipher.doFinal(message);
             return new CipherMessage(plainMessage, message, iv);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
             return null;
         }
     }
 
-    public Message Decrypt(CipherMessage cipherMessage){
+    public Message Decrypt(CipherMessage cipherMessage) {
         try {
             cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(cipherMessage.iv()));
             byte[] plainText = cipher.doFinal(cipherMessage.cipherText());
             return new Message(cipherMessage, plainText);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Decryption returns null");
+        } catch (Exception ignored) {
             return null;
         }
     }
@@ -53,27 +50,25 @@ public class AESEncryption {
         try {
             cipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(iv));
             return cipher.doFinal(input);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
             return null;
         }
     }
 
-    public byte[] Decrypt(byte[] input, byte[] iv){
+    public byte[] Decrypt(byte[] input, byte[] iv) {
         try {
             cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(iv));
             return cipher.doFinal(input);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
             return null;
         }
     }
 
     public byte[] RandomIV() throws NoSuchProviderException, NoSuchAlgorithmException {
-            SecureRandom secureRandom = SecureRandom.getInstance("DEFAULT", "BC");
-            byte[] iv = new byte[16];
-            secureRandom.nextBytes(iv);
-            return iv;
+        SecureRandom secureRandom = SecureRandom.getInstance("DEFAULT", "BC");
+        byte[] iv = new byte[16];
+        secureRandom.nextBytes(iv);
+        return iv;
     }
 
 }
