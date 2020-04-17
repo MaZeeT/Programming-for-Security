@@ -3,7 +3,7 @@ package UI.GUI;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-public abstract class View{
+public abstract class View {
     private int x;
     private int y;
     BorderPane pane;
@@ -17,4 +17,5 @@ public abstract class View{
     public Scene GetScene() {
         return new Scene(pane, x, y);
     }
+
 }

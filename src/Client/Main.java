@@ -2,7 +2,6 @@ package Client;
 
 import Logic.KeyMaster;
 import UI.GUI.ChatGUI;
-import UI.GUI.IGUI;
 import UI.TerminalUI;
 import UI.UI;
 import javafx.application.Application;
@@ -34,11 +33,11 @@ public class Main extends Application {
         String username = "ClientTerminal";
         ChatClient client = launchClient(ip, port, keyMaster, username);
         UI ui = launchTerminal(username);
-      //  UI gui = launchGUI(primaryStage, username);
+        UI gui = launchGUI(primaryStage, username);
     }
 
     private UI launchGUI(Stage primaryStage, String username) {
-        ChatGUI gui = new ChatGUI(800, 600);
+        ChatGUI gui = new ChatGUI(username,800, 600);
         primaryStage.setTitle("ChatCrypt");
         primaryStage.setScene(gui.getScene());
         primaryStage.show();

@@ -27,9 +27,9 @@ public class ChatView extends View implements EventSubscriber<Message> {
     protected Button submitButton = new Button("Enter");
 
     @Override
-    public void eventUpdate(Message event, String eventName) {
-        System.out.println(event);
-        textArea.appendText(event.toString());
+    public void eventUpdate(Message message, String eventName) {
+        String text = message + System.lineSeparator();
+        textArea.appendText(text);
     }
 
     private void configPane() {

@@ -20,7 +20,7 @@ public class ChatController {
             String username = view.username.getText();
             String input = view.textField.getText();
             Message message = new Message(username, input);
-            EventNotifier.messageSent.publishEvent(message); //todo event publish
+            EventNotifier.messageSent.publishEvent(message);
 
             //clears and focus input textField
             view.textField.setText("");
