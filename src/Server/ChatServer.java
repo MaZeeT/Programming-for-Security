@@ -38,12 +38,7 @@ public class ChatServer implements EventSubscriber<Message> {
     }
 
     public void sendMessage(Message message) {
-        try {
-            chatConnection.send(message);
-        } catch (IOException e) {
-            System.out.println(e.toString());
-        }
-
+        chatConnection.send(message);
     }
 
     boolean isReceiving = true;
@@ -52,14 +47,10 @@ public class ChatServer implements EventSubscriber<Message> {
         new Thread(() -> {
             isReceiving = true;
             while (isReceiving) {
-                try {
-                    Message message = chatConnection.receive();
-                    if (!messageHistory.contains(message)) {
-                        messageHistory.add(message);
-                        EventNotifier.messageReceived.publishEvent(message);
-                    }
-                } catch (Exception e) {
-                    System.out.println(e.toString());
+                Message message = (Message) chatConnection.receive();
+                if (!messageHistory.contains(message)) {
+                    messageHistory.add(message);
+                    EventNotifier.messageReceived.publishEvent(message);
                 }
             }
         }).start();

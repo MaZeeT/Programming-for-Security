@@ -14,13 +14,21 @@ public class ChatConnection {
         this.inputStream = new ObjectInputStream(socket.getInputStream());
     }
 
-    public Message receive() throws IOException, ClassNotFoundException {
-        return (Message) inputStream.readObject();
+    public Object receive(){
+        try{
+            return inputStream.readObject();
+        }catch (Exception e){
+            return null;
+        }
     }
 
-    public void send(Message message) throws IOException {
-        outputStream.writeObject(message);
-        outputStream.flush();
+    public void send(Message message){
+        try{
+            outputStream.writeObject(message);
+            outputStream.flush();
+        }catch (IOException e){
+            System.out.println("IOException at while sending");
+        }
     }
 
 }
