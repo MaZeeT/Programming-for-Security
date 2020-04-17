@@ -3,14 +3,11 @@ package Server;
 import ChatEvents.EventNotifier;
 import ChatEvents.EventSubscriber;
 import Network.ChatConnection;
-import Network.CipherMessage;
 import Network.Message;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.LinkedList;
-import java.util.List;
 
 public class ChatServer implements EventSubscriber<Message> {
     ChatConnection chatConnection;
@@ -30,7 +27,6 @@ public class ChatServer implements EventSubscriber<Message> {
                     startReceiving();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.out.println("hello");
                 }
             }
         }).start();
@@ -57,11 +53,6 @@ public class ChatServer implements EventSubscriber<Message> {
             sendMessage(message);
             EventNotifier.messageReceived.publishEvent(message);
         }
-        /*if (input instanceof CipherMessage) {
-            CipherMessage cMessage = (CipherMessage)input;
-            sendMessage(cMessage);
-            EventNotifier.messageReceived.publishEvent(cMessage);
-        }*/
     }
 
     public void stopReceiving() {
@@ -75,6 +66,7 @@ public class ChatServer implements EventSubscriber<Message> {
                 sendMessage(message);
                 break;
             case "messageReceived":
+                //TODO Not in use, could maybe be refactored to simplify EventSystem
                 //EventNotifier.messageSent.publishEvent(message);
                 break;
             default:
