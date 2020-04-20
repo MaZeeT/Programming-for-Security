@@ -1,4 +1,4 @@
-package Server;
+package Logic;
 
 import ChatEvents.*;
 import Network.*;
@@ -6,10 +6,10 @@ import Network.*;
 import java.io.IOException;
 import java.net.*;
 
-public class ChatServer implements EventSubscriber<Message> {
+public class ServerLogic implements EventSubscriber<Message> {
     ChatConnection chatConnection;
 
-    public ChatServer(int port) throws IOException {
+    public ServerLogic(int port) throws IOException {
         EventNotifier.messageSent.subscribe(this);
         EventNotifier.messageReceived.subscribe(this);
         acceptConnections(new ServerSocket(port));

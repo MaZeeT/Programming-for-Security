@@ -1,4 +1,4 @@
-package Client;
+package Logic;
 
 import Encryption.KeyMaster;
 import UI.GUI.ChatGUI;
@@ -11,7 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.KeyPair;
 import java.security.interfaces.RSAPublicKey;
 
-public class Main extends Application {
+public class MainClient extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -26,7 +26,7 @@ public class Main extends Application {
         int port = 3000;
         String username = "ClientTerminal";
 
-        ChatClient client = launchClient(ip, port, username);
+        ClientLogic client = launchClient(ip, port, username);
         UI ui = launchTerminal(username);
         UI gui = launchGUI(primaryStage, username);
     }
@@ -43,7 +43,7 @@ public class Main extends Application {
         return new TerminalUI(username);
     }
 
-    private ChatClient launchClient(String ip, int port, String username) throws Exception {
+    private ClientLogic launchClient(String ip, int port, String username) throws Exception {
         //generate keys and store them in the KeyMaster class
         SecretKeySpec secretKey = KeyMaster.generateSecretKey(password, salt);
         KeyPair keyPair = KeyMaster.generateKeyPair();
@@ -54,7 +54,7 @@ public class Main extends Application {
         RSAPublicKey publicKey = (RSAPublicKey) keyMaster.keyPair().getPublic();
         keyMaster.addPublicKey(username, publicKey);
 
-        return new ChatClient(ip, port, keyMaster);
+        return new ClientLogic(ip, port, keyMaster);
     }
 
 }

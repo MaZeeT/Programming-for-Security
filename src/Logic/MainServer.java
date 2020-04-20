@@ -1,13 +1,13 @@
-package Server;
+package Logic;
 
 import UI.TerminalUI;
 
-public class Main {
+public class MainServer {
     public static void main(String[] args) throws Exception {
         String username = "ServerTerminal";
         TerminalUI ui = new TerminalUI(username);
 
-        ChatServer server = new ChatServer(3000);
+        ServerLogic server = new ServerLogic(3000);
     }
 
 }

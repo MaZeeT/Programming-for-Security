@@ -1,4 +1,4 @@
-package Client;
+package Logic;
 
 import ChatEvents.*;
 import Encryption.*;
@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.net.Socket;
 import java.security.interfaces.RSAPublicKey;
 
-public class ChatClient implements EventSubscriber<Message> {
+public class ClientLogic implements EventSubscriber<Message> {
     ChatConnection chatConnection;
     AESEncryption aesEncryption;
     KeyMaster keyMaster;
 
-    public ChatClient(String ip, int port, KeyMaster keyMaster) throws IOException {
+    public ClientLogic(String ip, int port, KeyMaster keyMaster) throws IOException {
         this.chatConnection = new ChatConnection(new Socket(ip, port));
         this.aesEncryption = new AESEncryption(keyMaster.secretKey());
         this.keyMaster = keyMaster;
