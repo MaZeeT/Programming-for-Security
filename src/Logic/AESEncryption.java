@@ -1,22 +1,18 @@
 package Logic;
 
-import Network.CipherMessage;
-import Network.Message;
+import Network.*;
 
 import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.spec.*;
 import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
+import java.security.*;
 
 public class AESEncryption {
-    SecretKeySpec key;
+    SecretKeySpec secretKey;
     Cipher cipher;
 
-    public AESEncryption(SecretKeySpec key) {
-        this.key = key;
+    public AESEncryption(SecretKeySpec secretKey) {
+        this.secretKey = secretKey;
         try {
             this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "BC");
         } catch (Exception e) {
@@ -28,7 +24,7 @@ public class AESEncryption {
         try {
             byte[] iv = RandomIV();
             byte[] message = plainMessage.message().getBytes(StandardCharsets.UTF_8);
-            cipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(iv));
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(iv));
             message = cipher.doFinal(message);
             return new CipherMessage(plainMessage, message, iv);
         } catch (Exception ignored) {
@@ -38,27 +34,9 @@ public class AESEncryption {
 
     public Message Decrypt(CipherMessage cipherMessage) {
         try {
-            cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(cipherMessage.iv()));
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(cipherMessage.iv()));
             byte[] plainText = cipher.doFinal(cipherMessage.cipherText());
             return new Message(cipherMessage, plainText);
-        } catch (Exception ignored) {
-            return null;
-        }
-    }
-
-    public byte[] Encrypt(byte[] input, byte[] iv) {
-        try {
-            cipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(iv));
-            return cipher.doFinal(input);
-        } catch (Exception ignored) {
-            return null;
-        }
-    }
-
-    public byte[] Decrypt(byte[] input, byte[] iv) {
-        try {
-            cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(iv));
-            return cipher.doFinal(input);
         } catch (Exception ignored) {
             return null;
         }

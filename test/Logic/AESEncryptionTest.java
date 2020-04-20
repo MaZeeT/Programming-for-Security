@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,30 +23,6 @@ class AESEncryptionTest {
             iv = aes.RandomIV();
         } catch (Exception ignored) {
         }
-    }
-
-    @Test
-    void encrypt() {
-        String before = "a0a1a2a3a4a5a6a7a0a1a2a3a4a5a6a7";
-
-        byte[] plainText = before.getBytes(StandardCharsets.UTF_8);
-        byte[] cipherText = aes.Encrypt(plainText, iv);
-        String after = new String(cipherText, StandardCharsets.UTF_8);
-
-        assertNotEquals(before, after);
-    }
-
-    @Test
-    void decrypt() {
-        String before = "Hello with you";
-
-        byte[] plainText = before.getBytes(StandardCharsets.UTF_8);
-        byte[] cipherText = aes.Encrypt(plainText, iv);
-        byte[] decryptText = aes.Decrypt(cipherText, iv);
-
-        String after = new String(decryptText, StandardCharsets.UTF_8);
-
-        assertEquals(before, after);
     }
 
     @Test

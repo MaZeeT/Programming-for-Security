@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class SignatureSignerTest {
-    KeyPair keyPair;
     RSAPrivateKey privateKey;
     RSAPublicKey publicKey;
     RSAPublicKey falsePublicKey;
@@ -21,7 +20,7 @@ class SignatureSignerTest {
     @BeforeEach
     void setUp() {
         try {
-            keyPair = KeyMaster.generateKeyPair();
+            KeyPair keyPair = KeyMaster.generateKeyPair();
             privateKey = (RSAPrivateKey) keyPair.getPrivate();
             publicKey = (RSAPublicKey) keyPair.getPublic();
             falsePublicKey = (RSAPublicKey) KeyMaster.generateKeyPair().getPublic();

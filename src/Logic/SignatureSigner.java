@@ -3,8 +3,7 @@ package Logic;
 import Network.Message;
 
 import java.security.*;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
+import java.security.interfaces.*;
 
 public class SignatureSigner {
 

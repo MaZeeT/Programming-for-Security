@@ -2,7 +2,6 @@ package Logic;
 
 import org.junit.jupiter.api.Test;
 
-import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.KeyPair;
 import java.security.interfaces.RSAPublicKey;
@@ -208,8 +207,8 @@ class KeyMasterTest {
             e.printStackTrace();
         }
 
-        assertEquals(keyPair,keyMaster.asymmetricKeyPair());
-        assertEquals(secretKey,keyMaster.symmetricKey());
+        assertEquals(keyPair,keyMaster.keyPair());
+        assertEquals(secretKey,keyMaster.secretKey());
     }
 
 }

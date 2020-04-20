@@ -1,13 +1,10 @@
 package Server;
 
-import ChatEvents.EventNotifier;
-import ChatEvents.EventSubscriber;
-import Network.ChatConnection;
-import Network.Message;
+import ChatEvents.*;
+import Network.*;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 
 public class ChatServer implements EventSubscriber<Message> {
     ChatConnection chatConnection;

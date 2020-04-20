@@ -1,11 +1,8 @@
 package UI.GUI;
 
-import ChatEvents.EventNotifier;
-import ChatEvents.EventSubscriber;
+import ChatEvents.*;
 import Network.Message;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
 public class ChatView extends View implements EventSubscriber<Message> {

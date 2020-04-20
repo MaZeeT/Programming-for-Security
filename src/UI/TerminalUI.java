@@ -1,12 +1,9 @@
 package UI;
 
-import ChatEvents.EventNotifier;
-import ChatEvents.EventSubscriber;
+import ChatEvents.*;
 import Network.Message;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class TerminalUI implements UI, EventSubscriber<Message> {
     private String username;

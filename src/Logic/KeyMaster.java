@@ -1,19 +1,14 @@
 package Logic;
 
 import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
+import javax.crypto.spec.*;
+import java.security.*;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class KeyMaster {
-    SecretKeySpec key = null;  //symmetric key
+    SecretKeySpec secretKey = null;  //symmetric key
     KeyPair keyPair = null; //private and public key
     Map<String, RSAPublicKey> keyMap; //map with key:username and value:public key.
 
@@ -22,16 +17,16 @@ public class KeyMaster {
     }
 
     public KeyMaster(SecretKeySpec secretKey, KeyPair keyPair) {
-        this.key = secretKey;
+        this.secretKey = secretKey;
         this.keyPair = keyPair;
         this.keyMap = new HashMap<>();
     }
 
-    public SecretKeySpec symmetricKey() {
-        return key;
+    public SecretKeySpec secretKey() {
+        return secretKey;
     }
 
-    public KeyPair asymmetricKeyPair() {
+    public KeyPair keyPair() {
         return keyPair;
     }
 

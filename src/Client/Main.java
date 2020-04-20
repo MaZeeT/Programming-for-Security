@@ -16,7 +16,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+    //password and salt is used to generate the secretKey used for the chat encryption
     char[] password = "HardcodedPasswordIsBad".toCharArray();
     byte[] salt = {0, 1, 1, 1, 2, 0, 6, 3};
 
@@ -24,8 +24,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         String ip = "127.0.0.1";
         int port = 3000;
-
         String username = "ClientTerminal";
+
         ChatClient client = launchClient(ip, port, username);
         UI ui = launchTerminal(username);
         UI gui = launchGUI(primaryStage, username);
@@ -44,13 +44,14 @@ public class Main extends Application {
     }
 
     private ChatClient launchClient(String ip, int port, String username) throws Exception {
-        //generate keys and combine into the KeyMaster class
+        //generate keys and store them in the KeyMaster class
         SecretKeySpec secretKey = KeyMaster.generateSecretKey(password, salt);
         KeyPair keyPair = KeyMaster.generateKeyPair();
         KeyMaster keyMaster = new KeyMaster(secretKey, keyPair);
 
-        //todo announce public key to server and keep a collection of public keys.
-        RSAPublicKey publicKey = (RSAPublicKey) keyMaster.asymmetricKeyPair().getPublic();
+        //adds own public key to a map of <username,publicKey>
+        //(all trusted usernames should have a public key in this map)
+        RSAPublicKey publicKey = (RSAPublicKey) keyMaster.keyPair().getPublic();
         keyMaster.addPublicKey(username, publicKey);
 
         return new ChatClient(ip, port, keyMaster);

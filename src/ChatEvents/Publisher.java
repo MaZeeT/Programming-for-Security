@@ -1,7 +1,6 @@
 package ChatEvents;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Publisher<T> implements EventPublisher<T> {
     private List<EventSubscriber<T>> subscribers = new LinkedList<>();

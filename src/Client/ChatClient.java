@@ -1,13 +1,9 @@
 package Client;
 
-import ChatEvents.EventNotifier;
-import ChatEvents.EventSubscriber;
-import Logic.AESEncryption;
-import Logic.KeyMaster;
-import Logic.SignatureSigner;
-import Network.ChatConnection;
-import Network.CipherMessage;
-import Network.Message;
+import ChatEvents.*;
+import Logic.*;
+import Network.*;
+
 
 import java.io.IOException;
 import java.net.Socket;
@@ -20,7 +16,7 @@ public class ChatClient implements EventSubscriber<Message> {
 
     public ChatClient(String ip, int port, KeyMaster keyMaster) throws IOException {
         this.chatConnection = new ChatConnection(new Socket(ip, port));
-        this.aesEncryption = new AESEncryption(keyMaster.symmetricKey());
+        this.aesEncryption = new AESEncryption(keyMaster.secretKey());
         this.keyMaster = keyMaster;
         EventNotifier.messageSent.subscribe(this);
         startReceiving();
@@ -28,7 +24,7 @@ public class ChatClient implements EventSubscriber<Message> {
 
 
     private void sendMessage(Message message) {
-        SignatureSigner.sign(message, keyMaster.asymmetricKeyPair());
+        SignatureSigner.sign(message, keyMaster.keyPair());
         CipherMessage cMessage = aesEncryption.Encrypt(message);
         chatConnection.send(cMessage);
     }
