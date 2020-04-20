@@ -1,6 +1,6 @@
 package Client;
 
-import Logic.KeyMaster;
+import Encryption.KeyMaster;
 import UI.GUI.ChatGUI;
 import UI.TerminalUI;
 import UI.UI;

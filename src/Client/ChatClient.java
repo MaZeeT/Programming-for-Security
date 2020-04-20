@@ -1,7 +1,7 @@
 package Client;
 
 import ChatEvents.*;
-import Logic.*;
+import Encryption.*;
 import Network.*;
 
 

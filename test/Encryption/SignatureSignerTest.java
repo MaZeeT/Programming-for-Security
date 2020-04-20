@@ -1,4 +1,4 @@
-package Logic;
+package Encryption;
 
 import Network.Message;
 import org.junit.jupiter.api.BeforeEach;

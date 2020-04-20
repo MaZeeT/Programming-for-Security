@@ -1,4 +1,4 @@
-package Logic;
+package Encryption;
 
 import Network.*;
 

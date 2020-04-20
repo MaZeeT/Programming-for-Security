@@ -1,4 +1,4 @@
-package Logic;
+package Encryption;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.*;

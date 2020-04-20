@@ -1,4 +1,4 @@
-package Logic;
+package Encryption;
 
 import org.junit.jupiter.api.Test;
 
