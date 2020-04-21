@@ -31,6 +31,7 @@ public class MainTestClient extends Application {
         int port = 3000;
         String username = "TestClient";
 
+        //the terminal or GUI ui can be commented out or in depending on which ui is wanted, default both is launched
         ClientLogic client = launchClient(ip, port, username);
         UI ui = launchTerminal(username);
         UI gui = launchGUI(primaryStage, username);
