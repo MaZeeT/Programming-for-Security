@@ -5,15 +5,12 @@ import Encryption.KeyMaster;
 import Network.Message;
 import UI.GUI.ChatGUI;
 import UI.TerminalUI;
-import UI.UI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.KeyPair;
 import java.security.interfaces.RSAPublicKey;
-import java.util.LinkedList;
-import java.util.List;
 
 public class MainTestClient extends Application {
 
@@ -33,22 +30,22 @@ public class MainTestClient extends Application {
 
         //the terminal or GUI ui can be commented out or in depending on which ui is wanted, default both is launched
         ClientLogic client = launchClient(ip, port, username);
-        UI ui = launchTerminal(username);
-        UI gui = launchGUI(primaryStage, username);
+        TerminalUI ui = launchTerminal(username);
+        ChatGUI gui = launchGUI(primaryStage, username);
 
         sleep(500);
         runTests(username);
     }
 
-    private UI launchGUI(Stage primaryStage, String username) {
+    private ChatGUI launchGUI(Stage primaryStage, String username) {
         ChatGUI gui = new ChatGUI(username, 800, 600);
         primaryStage.setTitle("ChatCrypt");
         primaryStage.setScene(gui.getScene());
         primaryStage.show();
-        return (UI) gui;
+        return gui;
     }
 
-    private UI launchTerminal(String username) {
+    private TerminalUI launchTerminal(String username) {
         return new TerminalUI(username);
     }
 
@@ -67,18 +64,18 @@ public class MainTestClient extends Application {
     }
 
     private void runTests(String username) {
-            say(username, "This is the predefined tests, I will show how this program works");
-            say(username, "Now I will say -TESTING CHAT- 3 times");
-            say(username, "-TESTING CHAT-");
-            say(username, "-TESTING CHAT-");
-            say(username, "-TESTING CHAT-");
-            say(username, "Now I will say -USER TESTING- 3 times where the 2nd time is an invalid user");
-            say(username, "and should not show up in the client but should be able to be seen on the server");
-            say(username, "-USER TESTING-");
-            say("Mr. hacker", "-USER TESTING-");
-            say(username, "-USER TESTING-");
-            say(username, "All valid messages should be shown on the client and a encrypted version on the server");
-            say(username, "for invalid messages it will not be shown on the client but a encrypted version can still be seen on the server");
+        say(username, "This is the predefined tests, I will show how this program works");
+        say(username, "Now I will say -TESTING CHAT- 3 times");
+        say(username, "-TESTING CHAT-");
+        say(username, "-TESTING CHAT-");
+        say(username, "-TESTING CHAT-");
+        say(username, "Now I will say -USER TESTING- 3 times where the 2nd time is an invalid user");
+        say(username, "and should not show up in the client but should be able to be seen on the server");
+        say(username, "-USER TESTING-");
+        say("Mr. hacker", "-USER TESTING-");
+        say(username, "-USER TESTING-");
+        say(username, "All valid messages should be shown on the client and a encrypted version on the server");
+        say(username, "for invalid messages it will not be shown on the client but a encrypted version can still be seen on the server");
     }
 
     private void say(String username, String chat) {
@@ -87,10 +84,11 @@ public class MainTestClient extends Application {
         sleep(200);
     }
 
-    private void sleep(int millis){
+    private void sleep(int millis) {
         try {
             Thread.sleep(millis);
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
 }

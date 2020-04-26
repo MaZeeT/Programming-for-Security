@@ -1,9 +1,8 @@
 package UI.GUI;
 
-import UI.UI;
 import javafx.scene.Scene;
 
-public class ChatGUI implements UI {
+public class ChatGUI {
     private ChatView view;
     private ChatController controller;
 

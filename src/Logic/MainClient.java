@@ -3,7 +3,6 @@ package Logic;
 import Encryption.KeyMaster;
 import UI.GUI.ChatGUI;
 import UI.TerminalUI;
-import UI.UI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -28,19 +27,19 @@ public class MainClient extends Application {
 
         //the terminal or GUI ui can be commented out or in depending on which ui is wanted, default both is launched
         ClientLogic client = launchClient(ip, port, username);
-        UI ui = launchTerminal(username);
-        UI gui = launchGUI(primaryStage, username);
+        TerminalUI ui = launchTerminal(username);
+        ChatGUI gui = launchGUI(primaryStage, username);
     }
 
-    private UI launchGUI(Stage primaryStage, String username) {
+    private ChatGUI launchGUI(Stage primaryStage, String username) {
         ChatGUI gui = new ChatGUI(username, 800, 600);
         primaryStage.setTitle("ChatCrypt");
         primaryStage.setScene(gui.getScene());
         primaryStage.show();
-        return (UI) gui;
+        return gui;
     }
 
-    private UI launchTerminal(String username) {
+    private TerminalUI launchTerminal(String username) {
         return new TerminalUI(username);
     }
 

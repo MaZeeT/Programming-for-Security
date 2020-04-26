@@ -5,7 +5,7 @@ import Network.Message;
 
 import java.io.*;
 
-public class TerminalUI implements UI, EventSubscriber<Message> {
+public class TerminalUI implements EventSubscriber<Message> {
     private String username;
 
     public TerminalUI(String username) {
